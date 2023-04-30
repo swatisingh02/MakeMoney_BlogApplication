@@ -15,3 +15,10 @@ mongoose.connect('mongodb+srv://admin:uByCH3ZXYIRyaaO7@cluster0.zjkm8fh.mongodb.
 .then(() => console.log("Connected To Database and Listening to Localhost 8080"))
 .catch((err) => console.log(err));
 
+// Server production asssests
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join("frontend/build")));
+    app.get("*", (req,res) => {
+        res.sendFile(path.resolve(__dirname,'frontend', 'build', 'index.html' ));
+    });
+}
